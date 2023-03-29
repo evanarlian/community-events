@@ -24,6 +24,7 @@ CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file_
 echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib" >> .bashrc
 source ~/.bashrc
 
+conda activate kerascv
 python -m pip install tensorflow==2.12.*
 pip install keras_cv===0.4.2 tensorflow_datasets===4.8.1 pillow===9.4.0 imutils opencv-python matplotlib huggingface-hub pycocotools
 
