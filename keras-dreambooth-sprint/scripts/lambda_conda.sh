@@ -19,9 +19,11 @@ ipython kernel install --user --name=kerascv
 conda install -c conda-forge cudatoolkit=11.8.0 -y
 python3 -m pip install nvidia-cudnn-cu11==8.6.0.163
 
+# setting LD_LIBRARY_PATH breaks git, curl, etc
+# adding the /lib/x86_64-linux-gnu seems to help (output from ldconfig -p) 
 echo "export XLA_FLAGS=--xla_gpu_cuda_data_dir=/usr/lib/cuda" >> ~/.bashrc
 CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
-echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=/lib/x86_64-linux-gnu:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib" >> ~/.bashrc
 source ~/.bashrc
 
 conda activate kerascv
